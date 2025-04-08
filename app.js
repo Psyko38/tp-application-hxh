@@ -9,6 +9,7 @@ function createCard(id, nombre, titre, rank, description, img) {
 	const imageElement = document.createElement("img");
 	const pElement = document.createElement("p");
 	const btnCloseElement = document.createElement("button");
+	const btnEditElement = document.createElement("button");
 
 	cardElement.classList.add("card");
 	cardPrependElement.classList.add("card-prepend");
@@ -22,6 +23,7 @@ function createCard(id, nombre, titre, rank, description, img) {
 	pElement.classList.add("card-box", "card-description");
 
 	btnCloseElement.classList.add("card-close");
+	btnEditElement.classList.add("card-edit");
 
 	imageElement.setAttribute("src", img);
 	imageElement.setAttribute("alt", nombre);
@@ -31,16 +33,22 @@ function createCard(id, nombre, titre, rank, description, img) {
 	spanNumberElement.textContent = nombre;
 	pElement.textContent = description;
 	btnCloseElement.textContent = "X";
+	btnEditElement.textContent = "✏️";
 
 	btnCloseElement.addEventListener("click", async () => {
 		let x = await FetchDelete(API_URL, id);
 		UpdateCards();
 	});
 
+	btnEditElement.addEventListener("click", async () => {
+		EditCards(API_URL, id);
+	});
+
 	cardElement.appendChild(cardPrependElement);
 	cardElement.appendChild(cardBoxElement);
 	cardElement.appendChild(cardAppendElement);
 	cardElement.appendChild(btnCloseElement);
+	cardElement.appendChild(btnEditElement);
 
 	cardPrependElement.appendChild(spanNumberElement);
 	cardPrependElement.appendChild(spanTitreElement);
@@ -89,14 +97,16 @@ const inputSearch = document.querySelector("#filter-search");
 const cardDialog = document.querySelector("#card-modal");
 const openCardDialogBtn = document.querySelector("#open-card-modal");
 const cardForm = document.querySelector("#card-form");
+const cardEditModal = document.querySelector("#edit-card-form");
+const cardEditForm = document.querySelector("#edit-card-modal");
 
 let galleryElement = document.querySelector(".gallery");
 let isFilterAll = true;
 let isFilterSS = false;
 let isFilterSOrMore = false;
+let EditCardsId = 0;
 
 cardForm.addEventListener("submit", async (e) => {
-	// Coder ici pour creer une nouvelle carte
 	e.preventDefault();
 	let Form = new FormData(cardForm);
 	cardDialog.close();
@@ -110,6 +120,27 @@ cardForm.addEventListener("submit", async (e) => {
 		Form.get("image")
 	);
 	UpdateCards();
+});
+
+cardEditForm.addEventListener("submit", async (e) => {
+	e.preventDefault();
+	let Form = new FormData(cardForm);
+	cardEditForm.close();
+	FetchPatch(
+		API_URL,
+		EditCardsId,
+		Form.get("number"),
+		Form.get("name"),
+		Form.get("rank"),
+		Form.get("description"),
+		Form.get("isLegendary") != null,
+		Form.get("image")
+	);
+	UpdateCards();
+});
+
+cardForm.addEventListener("submit", async (e) => {
+	e.preventDefault();
 });
 
 openCardDialogBtn.addEventListener("click", () => {
@@ -126,7 +157,6 @@ buttonAll.addEventListener("click", async () => {
 	isFilterSOrMore = false;
 
 	UpdateCards();
-	// Coder ici pour afficher toutes les cartes
 });
 
 buttonSMore.addEventListener("click", async () => {
@@ -139,7 +169,6 @@ buttonSMore.addEventListener("click", async () => {
 	isFilterSOrMore = true;
 
 	UpdateCards();
-	// Coder ici pour afficher uniquement les cartes dont le rank est S ou plus
 });
 
 buttonSS.addEventListener("click", async () => {
@@ -152,13 +181,10 @@ buttonSS.addEventListener("click", async () => {
 	isFilterSOrMore = false;
 
 	UpdateCards();
-	// Coder ici pour afficher uniquement les cartes dont le rank est SS
 });
 
 inputSearch.addEventListener("input", async (e) => {
 	UpdateCards();
-
-	// Coder ici pour afficher uniquement les cartes qui contiennent la recherche de l'utilisateur
 });
 
 window.addEventListener("DOMContentLoaded", async () => {
@@ -175,6 +201,14 @@ async function FetchGet(API, filter) {
 	const data = await rep.json();
 	resetSectionGallery();
 	displayAllCards(data);
+}
+
+async function FetchGet2(API, id) {
+	const rep = await fetch(`${API}/cards/${id}`, {
+		method: "GET",
+	});
+	const data = await rep.json();
+	return data;
 }
 
 async function FetchPost(
@@ -211,6 +245,52 @@ async function FetchDelete(API, ID) {
 	const rep = await fetch(`${API}/cards/${ID}`, {
 		method: "DELETE",
 	});
+}
+
+async function FetchPatch(
+	API,
+	ID,
+	TxTnumber,
+	TxTname,
+	TxTrank,
+	TxTdescription,
+	TxTisLegendary,
+	TxTimage
+) {
+	try {
+		const rep = await fetch(`${API}/cards/${ID}`, {
+			method: "PATCH",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify({
+				number: TxTnumber,
+				name: TxTname,
+				rank: TxTrank,
+				description: TxTdescription,
+				isLegendary: TxTisLegendary,
+				image: TxTimage,
+			}),
+		});
+		const data = await rep.json();
+	} catch (err) {
+		console.error(err);
+	}
+}
+
+async function EditCards(API, ID) {
+	EditCardsId = ID;
+	cardEditForm.showModal();
+	let Data = await FetchGet2(API, ID);
+	console.log(Data);
+	cardEditForm.querySelector(`[name="name"]`).value = Data.name;
+	cardEditForm.querySelector(`[name="number"]`).value = Data.number;
+	cardEditForm.querySelector(`[name="rank"]`).value = Data.rank;
+	cardEditForm.querySelector(`[name="description"]`).value = Data.description;
+	console.log(Data.isLegendary);
+	cardEditForm.querySelector(`[name="isLegendary"]`).cheked =
+		Data.isLegendary;
+	cardEditForm.querySelector(`[name="image"]`).value = Data.image;
 }
 
 function UpdateCards() {

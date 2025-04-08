@@ -82,6 +82,81 @@
 				</div>
 			</form>
 		</dialog>
+		<dialog id="edit-card-modal" class="modal" data-modal>
+			<h2>Modifier une carte</h2>
+			<form id="edit-card-form" class="edit-card-form" method="dialog">
+				<label class="form-label">
+					Name
+					<input
+						class="input outlined"
+						name="name"
+						type="text"
+						placeholder="Ruler's blade"
+						required
+					/>
+				</label>
+				<label class="form-label">
+					Number
+					<input
+						class="input outlined"
+						name="number"
+						type="text"
+						placeholder="001"
+						required
+					/>
+				</label>
+				<label class="form-label">
+					Rank
+					<input
+						class="input outlined"
+						name="rank"
+						type="text"
+						placeholder="SS-1"
+						required
+					/>
+				</label>
+				<label class="form-label">
+					Description
+					<textarea
+						class="input outlined"
+						name="description"
+						placeholder="Allow to dash and blade."
+						required
+					></textarea>
+				</label>
+				<label class="form-label">
+					Is Legendary
+					<input
+						class="input outlined"
+						name="isLegendary"
+						type="checkbox"
+					/>
+				</label>
+				<label class="form-label">
+					Image
+					<input
+						class="input outlined"
+						name="image"
+						type="text"
+						placeholder="000.png"
+						required
+					/>
+				</label>
+				<div class="form-actions">
+					<button
+						class="btn outlined bold white black-text"
+						type="submit"
+						formmethod="dialog"
+						data-close-modal
+					>
+						Annuler
+					</button>
+					<button class="btn red white-text bold" type="submit">
+						Modifier la carte
+					</button>
+				</div>
+			</form>
+		</dialog>
 		<main class="app">
 			<section class="header">
 				<div class="header-title">
