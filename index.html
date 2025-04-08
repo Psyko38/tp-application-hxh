@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="stylesheet" href="./styles.css" />
+		<title>Hunter-X-Hunter</title>
+	</head>
+	<body>
+		<dialog id="card-modal" class="modal" data-modal>
+			<h2>Ajout d'une nouvelle carte</h2>
+			<form id="card-form" class="card-form" method="dialog">
+				<label class="form-label">
+					Name
+					<input
+						class="input outlined"
+						name="name"
+						type="text"
+						placeholder="Ruler's blade"
+						required
+					/>
+				</label>
+				<label class="form-label">
+					Number
+					<input
+						class="input outlined"
+						name="number"
+						type="text"
+						placeholder="001"
+						required
+					/>
+				</label>
+				<label class="form-label">
+					Rank
+					<input
+						class="input outlined"
+						name="rank"
+						type="text"
+						placeholder="SS-1"
+						required
+					/>
+				</label>
+				<label class="form-label">
+					Description
+					<textarea
+						class="input outlined"
+						name="description"
+						placeholder="Allow to dash and blade."
+						required
+					></textarea>
+				</label>
+				<label class="form-label">
+					Is Legendary
+					<input
+						class="input outlined"
+						name="isLegendary"
+						type="checkbox"
+					/>
+				</label>
+				<label class="form-label">
+					Image
+					<input
+						class="input outlined"
+						name="image"
+						type="text"
+						placeholder="000.png"
+						required
+					/>
+				</label>
+				<div class="form-actions">
+					<button
+						class="btn outlined bold white black-text"
+						type="submit"
+						formmethod="dialog"
+						data-close-modal
+					>
+						Annuler
+					</button>
+					<button class="btn red white-text bold" type="submit">
+						Créer une carte
+					</button>
+				</div>
+			</form>
+		</dialog>
+		<main class="app">
+			<section class="header">
+				<div class="header-title">
+					<h1 class="text-large">Hunter X Hunter</h1>
+				</div>
+				<div class="header-actions">
+					<button
+						id="open-card-modal"
+						data-open-modal
+						class="btn bold active"
+					>
+						Créer une carte
+					</button>
+				</div>
+			</section>
+			<section class="search">
+				<div class="search-bar">
+					<svg
+						xmlns="http://www.w3.org/2000/svg"
+						viewBox="0 0 24 24"
+						fill="currentColor"
+					>
+						<title>magnify</title>
+						<path
+							d="M9.5,3A6.5,6.5 0 0,1 16,9.5C16,11.11 15.41,12.59 14.44,13.73L14.71,14H15.5L20.5,19L19,20.5L14,15.5V14.71L13.73,14.44C12.59,15.41 11.11,16 9.5,16A6.5,6.5 0 0,1 3,9.5A6.5,6.5 0 0,1 9.5,3M9.5,5C7,5 5,7 5,9.5C5,12 7,14 9.5,14C12,14 14,12 14,9.5C14,7 12,5 9.5,5Z"
+						/>
+					</svg>
+					<input
+						id="filter-search"
+						class="input block flat"
+						type="search"
+					/>
+				</div>
+				<div class="search-filters">
+					<button id="filter-all" class="btn bold active">All</button>
+					<button id="filter-ss" class="btn bold">SS ONLY</button>
+					<button id="filter-s-more" class="btn bold">
+						S OR MORE
+					</button>
+				</div>
+			</section>
+			<hr />
+			<section class="gallery"></section>
+		</main>
+		<script src="./app.js"></script>
+	</body>
+</html>

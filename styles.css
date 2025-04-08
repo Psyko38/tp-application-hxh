@@ -1,0 +1,257 @@
+:root {
+	--white: #ffffff;
+	--grey-lighten-1: #cfd0b9;
+	--black-lighten-1: #2a2e2f;
+	--red-darken-1: #cc527e;
+}
+
+img {
+	max-width: 100%;
+	border: 2px solid var(--black-lighten-1);
+}
+
+p {
+	margin: 0;
+}
+
+hr {
+	border: 2px solid var(--black-lighten-1);
+}
+
+.app {
+	color: var(--black-lighten-1);
+}
+
+.bold {
+	font-weight: 900;
+}
+
+.white {
+	background-color: var(--white) !important;
+}
+
+.white-text {
+	color: var(--white) !important;
+}
+
+.grey {
+	background-color: var(--grey-lighten-1) !important;
+}
+
+.grey-text {
+	color: var(--grey-lighten-1) !important;
+}
+
+.red {
+	background-color: var(--red-darken-1) !important;
+}
+
+.red-text {
+	color: var(--red-darken-1) !important;
+}
+
+.black {
+	background-color: var(--black-lighten-1) !important;
+}
+
+.black-text {
+	color: var(--black-lighten-1) !important;
+}
+
+.btn {
+	background-color: var(--black-lighten-1);
+	color: var(--white);
+	border-radius: 999px;
+	border: none;
+	padding: 12px 24px;
+	cursor: pointer;
+	text-transform: uppercase;
+}
+
+.btn.outlined {
+	border: thin solid currentColor;
+}
+
+.input {
+	padding: 12px;
+	border: none;
+}
+
+.input.block {
+	width: 100%;
+}
+
+.input.outlined {
+	border: thin solid var(--grey-lighten-1);
+}
+
+.btn.active {
+	background-color: var(--red-darken-1);
+}
+
+.modal {
+	padding: 12px;
+	background-color: var(--white);
+	border-radius: 8px;
+	z-index: 10;
+	min-width: 26rem;
+}
+
+.modal::backdrop {
+	background-color: rgba(0, 0, 0, 0.5);
+}
+
+.card-form {
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
+}
+
+.form-label {
+	display: flex;
+	flex-direction: column;
+	gap: 4px 0;
+}
+
+.form-actions {
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+	gap: 0 12px;
+}
+
+.header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.search {
+	display: grid;
+	justify-items: stretch;
+	align-items: center;
+	grid-template-rows: 1fr 1fr;
+	gap: 24px;
+}
+
+.search-bar {
+	padding: 0 0 0 12px;
+	display: grid;
+	grid-template-columns: 24px auto;
+	justify-items: stretch;
+	align-items: center;
+	border: 2px solid var(--black-lighten-1);
+	border-radius: 4px;
+	overflow: hidden;
+}
+
+.search-filters {
+	display: flex;
+	flex-direction: row;
+	justify-content: stretch;
+	align-items: center;
+	justify-self: center;
+	gap: 0 12px;
+}
+
+.gallery {
+	display: grid;
+	grid-template-columns: 1fr;
+	justify-items: center;
+	align-items: center;
+	padding: 24px;
+	gap: 18px;
+}
+
+.card {
+	position: relative;
+	display: grid;
+	grid-template-rows: 1fr 2fr 2fr;
+	justify-content: stretch;
+	align-content: stretch;
+	gap: 12px 0;
+	background-color: var(--black-lighten-1);
+	padding: 8px;
+	max-width: 18rem;
+	border-radius: 12px;
+}
+
+.card .card-close {
+	position: absolute;
+	top: -12px;
+	right: -12px;
+	border-radius: 9999px;
+	background-color: var(--red-darken-1);
+	color: var(--white);
+	width: 32px;
+	height: 32px;
+	border: none;
+	cursor: pointer;
+}
+
+.card .card-prepend {
+	display: grid;
+	grid-template-columns: 1fr 2fr 1fr;
+	gap: 0 12px;
+}
+
+.card .card-box {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: 8px;
+	background-color: var(--grey-lighten-1);
+	color: var(--black-lighten-1);
+	border: 2px solid var(--black-lighten-1);
+	border-radius: 4px;
+}
+
+.card .card-append {
+	padding: 12px;
+	display: flex;
+	justify-content: stretch;
+	align-items: stretch;
+	background: linear-gradient(
+		90deg,
+		#7d3851 0%,
+		#d4527e 20%,
+		#cc527e 40%,
+		#d4336e 60%,
+		#983f5f 100%
+	);
+}
+
+.card .card-description {
+	align-items: flex-start;
+	justify-content: flex-start;
+	display: flex;
+	width: 100%;
+}
+
+@media screen and (min-width: 640px) {
+	.gallery {
+		grid-template-columns: repeat(2, 1fr);
+	}
+
+	.search {
+		grid-template-columns: 8fr 4fr;
+		grid-template-rows: auto;
+	}
+}
+
+@media screen and (min-width: 910px) {
+	.gallery {
+		grid-template-columns: repeat(3, 1fr);
+	}
+}
+
+@media screen and (min-width: 1420px) {
+	.gallery {
+		grid-template-columns: repeat(4, 1fr);
+	}
+
+	.search {
+		grid-template-columns: 8fr 3fr;
+		grid-template-rows: auto;
+	}
+}
